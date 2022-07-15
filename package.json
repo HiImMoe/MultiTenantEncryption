@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "mt-encryption",
+    "mt-classic"
+  ],
+  "scripts": {
+    "enc": "yarn workspace mt-encryption",
+    "classic": "yarn workspace mt-classic"
+  }
+}
