@@ -6,7 +6,7 @@ export class EncryptionRepository {
   ivLength = 16;
   algorithm = 'aes-256-ctr';
 
-  encrypt(plainObject: any, objectKeysToEncrypt: string[], key: string): any {
+  enc<T>(plainObject: T, objectKeysToEncrypt: string[], key: string): T {
     const encryptedObject = { ...plainObject };
     objectKeysToEncrypt.forEach(objectKey => {
       encryptedObject[objectKey] = this.encryptValue(plainObject[objectKey], key);
@@ -24,7 +24,7 @@ export class EncryptionRepository {
     return encryptedText.toString('hex');
   }
 
-  decrypt(encryptedObject: any, objectKeysToEncrypt: string[], key: string) {
+  dec<T>(encryptedObject: T, objectKeysToEncrypt: string[], key: string): T {
     const plainObject = { ...encryptedObject };
     objectKeysToEncrypt.forEach(objectKey => {
       plainObject[objectKey] = this.decryptValue(encryptedObject[objectKey], key);

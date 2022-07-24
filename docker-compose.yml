@@ -1,10 +1,13 @@
-version: '3.5'
+version: '3.1'
 
 services:
   postgres:
     image: postgres:13.4
-    env_file:
-      - ./mt-encryption/.env
+    hostname: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mtenc
     
     volumes:
       - postgres:/data/postgres
@@ -12,20 +15,38 @@ services:
       - "5432:5432"
     restart: on-failure
 
-  pgadmin:
-    image: dpage/pgadmin4
-    env_file:
-    - .env.pg.docker
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    volumes:
-      - ./docker/pgadmin4/servers.json:/pgadmin4/servers.json
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   env_file:
+  #   - .env.pg.docker
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@admin.com
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   volumes:
+  #     - ./docker/pgadmin4/servers.json:/pgadmin4/servers.json
 
+  #   ports:
+  #     - "5050:80"
+
+  #   restart: on-failure
+
+  keycloak:
+     # image for Mac M1
+    image: wizzn/keycloak:14
+    # image: jboss/keycloak:12.0.4
+    #restart: on-failure
     ports:
-      - "8080:80"
-
-    restart: on-failure
+      - '8082:8080'
+    command:
+      # Avoid exit in boot-process when starting a second time.
+      - '-Dkeycloak.migration.strategy=IGNORE_EXISTING'
+    volumes:
+      - ./docker/realm-export.json:/tmp/realm-export.json
+    environment:
+      DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/realm-export.json
 
 volumes:
   postgres:

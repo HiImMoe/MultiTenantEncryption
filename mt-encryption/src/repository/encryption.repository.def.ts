@@ -1,4 +1,4 @@
 export abstract class EncryptionRepositoryDef {
-  abstract encrypt(plainObject: any, objectKeysToEncrypt: string[], key: string): any;
-  abstract decrypt(plainObject: any, objectKeysToEncrypt: string[], key: string): any;
+  abstract enc<T>(plainObject: T, objectKeysToEncrypt: string[], key: string): T;
+  abstract dec<T>(encryptedObject: T, objectKeysToEncrypt: string[], key: string): T;
 }

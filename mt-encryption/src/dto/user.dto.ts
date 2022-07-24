@@ -34,6 +34,10 @@ export class CreateUserDTO {
   secret?: encrypted;
 }
 
+export class CreateUserWithTenant extends CreateUserDTO {
+  tenantId: string;
+}
+
 export class UpdateUserDTO {
   @IsOptional()
   @IsString()

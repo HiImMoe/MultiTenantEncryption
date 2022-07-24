@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "mt-encryption",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -32,7 +32,7 @@
     "@nestjs/typeorm": "^8.0.3",
     "class-validator": "^0.13.2",
     "cls-hooked": "^4.2.2",
-    "jwks-rsa": "^2.1.2",
+    "jwks-rsa": "^2.1.4",
     "nanoid": "^3.3.4",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",

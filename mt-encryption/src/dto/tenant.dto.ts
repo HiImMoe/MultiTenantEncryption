@@ -1,12 +1,13 @@
 import { IsString, IsUUID } from 'class-validator';
 
-export class CreateTenantDTO {
+export class TenantDTO {
   @IsUUID()
   id: string;
 
   @IsString()
   tenantName!: string;
-
+}
+export class CreateTenantDTO {
   @IsString()
-  key!: string;
+  tenantName!: string;
 }

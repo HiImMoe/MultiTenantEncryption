@@ -3,8 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user/user.entity';
 import { UsersRepositoryModule } from './user/user.repository.module';
+import { Tenant } from './tenant/tenant.entity';
+import { TenantRepositoryModule } from './tenant/tenant.repository.module';
 
-export const entities = [User];
+export const entities = [User, Tenant];
 
 @Module({
   imports: [
@@ -23,7 +25,8 @@ export const entities = [User];
       inject: [ConfigService],
     }),
     UsersRepositoryModule,
+    TenantRepositoryModule,
   ],
-  exports: [UsersRepositoryModule],
+  exports: [UsersRepositoryModule, TenantRepositoryModule],
 })
 export class DatabaseModule {}
