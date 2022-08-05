@@ -3,10 +3,10 @@
   "private": true,
   "workspaces": [
     "mt-encryption",
-    "mt-classic"
+    "shared-table"
   ],
   "scripts": {
     "enc": "yarn workspace mt-encryption",
-    "classic": "yarn workspace mt-classic"
+    "shared": "yarn workspace shared-table"
   }
 }
