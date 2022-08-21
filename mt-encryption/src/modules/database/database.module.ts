@@ -5,8 +5,16 @@ import { User } from './user/user.entity';
 import { UsersRepositoryModule } from './user/user.repository.module';
 import { Tenant } from './tenant/tenant.entity';
 import { TenantRepositoryModule } from './tenant/tenant.repository.module';
+import { EmployeeRepositoryModule } from './employee/employee.module';
+import { Employee } from './employee/employee.entity';
+import { PerformanceRating } from './performance-rating/performance-rating.entity';
+import { PerformanceRatingRepositoryModule } from './performance-rating/performance-rating.module';
+import { Boni } from './boni/boni.entity';
+import { BoniRepositoryModule } from './boni/boni.module';
+import { MissingDayRepositoryModule } from './missingDay/missing-day.module';
+import { MissingDay } from './missingDay/missing-day.entity';
 
-export const entities = [User, Tenant];
+export const entities = [User, Tenant, Employee, PerformanceRating, Boni, MissingDay];
 
 @Module({
   imports: [
@@ -26,7 +34,18 @@ export const entities = [User, Tenant];
     }),
     UsersRepositoryModule,
     TenantRepositoryModule,
+    EmployeeRepositoryModule,
+    PerformanceRatingRepositoryModule,
+    BoniRepositoryModule,
+    MissingDayRepositoryModule,
   ],
-  exports: [UsersRepositoryModule, TenantRepositoryModule],
+  exports: [
+    UsersRepositoryModule,
+    TenantRepositoryModule,
+    EmployeeRepositoryModule,
+    PerformanceRatingRepositoryModule,
+    BoniRepositoryModule,
+    MissingDayRepositoryModule,
+  ],
 })
 export class DatabaseModule {}

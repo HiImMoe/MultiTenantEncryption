@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDTO, UpdateEmployeeDTO } from 'src/dto/employee.dto';
 import { EmployeeRepositoryDef } from 'src/repository/employee.repository.def';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { CommonDB } from '../common';
 import { EmployeeModel } from '../models/employee.model';
 import { Employee } from './employee.entity';
@@ -15,13 +15,12 @@ export class EmployeeRepository extends EmployeeRepositoryDef {
     this.common = new CommonDB(Employee, employeeRepo);
   }
 
-  async getEmployee(): Promise<EmployeeModel[]> {
+  async getEmployee(where: FindOptionsWhere<Employee>): Promise<EmployeeModel[]> {
     return await this.employeeRepo.find();
   }
 
-  async createEmployee(employeeData: CreateEmployeeDTO): Promise<EmployeeModel> {
-    const employee = await this.employeeRepo.create(employeeData);
-    this.employeeRepo.save(employee);
+  async createEmployee(employeeData: CreateEmployeeDTO): Promise<string> {
+    const employee = this.common.create(employeeData);
     return employee;
   }
 

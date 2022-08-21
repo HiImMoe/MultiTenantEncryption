@@ -8,5 +8,8 @@
   "scripts": {
     "enc": "yarn workspace mt-encryption",
     "shared": "yarn workspace shared-table"
+  },
+  "dependencies": {
+    "artillery": "^2.0.0-22"
   }
 }

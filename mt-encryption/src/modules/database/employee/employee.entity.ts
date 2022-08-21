@@ -10,17 +10,35 @@ export class Employee extends BaseEntity {
   employeeNumber: number;
 
   @Column()
+  gender: string;
+
+  @Column()
   firstName: string;
 
   @Column()
   lastName: string;
 
   @Column()
-  taxCategory: string;
+  street: string;
 
   @Column()
-  salary: number;
+  city: string;
 
   @Column()
-  healthInsurance: string;
+  country: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  phone: string;
+
+  @Column()
+  jobTitle: string;
+
+  @Column()
+  ssn: string;
+
+  @Column()
+  iban: string;
 }

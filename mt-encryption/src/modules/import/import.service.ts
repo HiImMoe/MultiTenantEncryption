@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RequestContext, TenantRequestContext } from 'src/context/tenant-context';
+import { EmployeeService } from 'src/service/employee/employee.serivce';
+import { TenantService } from 'src/service/tenant/tenant.service';
 import { Repository } from 'typeorm';
 import { Tenant } from '../database/tenant/tenant.entity';
 import { User } from '../database/user/user.entity';
@@ -10,6 +13,8 @@ export class ImportService {
   constructor(
     @InjectRepository(User) private userRepo: Repository<User>,
     @InjectRepository(Tenant) private tenantRepo: Repository<Tenant>,
+    private tenantService: TenantService,
+    private employeeService: EmployeeService,
     private configService: ConfigService,
   ) {
     const run = async (): Promise<boolean> => {
@@ -33,8 +38,24 @@ export class ImportService {
   }
 
   async import() {
-    await this.createTenant();
-    await this.createUser();
+    // await this.createTenant();
+    // const ctx: TenantRequestContext = RequestContext.get();
+    // if (ctx) {
+    //   ctx.tenantId = '9d2d29ed-0cec-4faf-a1f2-7a715593bdff';
+    // }
+    // const tenant = await this.tenantService.createTenant({ tenantName: 'test1' });
+    // new TenantRequestContext({}, {});
+    // const ctx: TenantRequestContext = RequestContext.get();
+    // console.log(ctx);
+    // if (ctx) {
+    //   ctx.tenantId = tenant.id;
+    // }
+    // await this.employeeService.createEmployee({
+    //   employeeNumber: 1,
+    //   firstName: 'Test',
+    //   lastName: 'Tester',
+    // });
+    // await this.createUser();
   }
 
   async createUser() {
@@ -47,6 +68,12 @@ export class ImportService {
         lastName: 'User',
       }),
     );
+  }
+
+  create() {
+    // create tenants
+    // create user
+    // create employees
   }
 
   async createTenant() {

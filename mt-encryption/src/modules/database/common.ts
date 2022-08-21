@@ -9,7 +9,6 @@ export class CommonDB<E extends ObjectLiteral> {
     this.repo = repo;
   }
 
-  // check if works
   async create(data: any): Promise<string> {
     const ctx: TenantRequestContext = RequestContext.get();
     const obj = await this.repo.create([{ ...data, tenantId: ctx.tenantId }]);
@@ -17,7 +16,6 @@ export class CommonDB<E extends ObjectLiteral> {
     return savedObj.id;
   }
 
-  // check if works
   async get(where: FindOptionsWhere<E>): Promise<E[]> {
     const ctx: TenantRequestContext = RequestContext.get();
     let whereOptions: FindOptionsWhere<any> = { ...where };
