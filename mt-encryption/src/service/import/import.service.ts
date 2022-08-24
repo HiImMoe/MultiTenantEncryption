@@ -13,7 +13,6 @@ import { BoniService } from '../boni/boni.service';
 import { CreateMissingDayDTO } from 'src/dto/missing-days.dto';
 import { MissingDayService } from '../missing-day/missing-day.service';
 import * as cliProgress from 'cli-progress';
-import { Connection } from 'typeorm/connection/Connection';
 import { UserService } from '../user/user.service';
 
 const NUMBER_OF_TENANTS = 10;

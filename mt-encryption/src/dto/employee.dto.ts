@@ -1,4 +1,50 @@
-import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsInt, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import { PagingDTO } from './common';
+
+export class GetEmployeeReqDTO extends PagingDTO {
+  @ApiProperty({ required: false, example: 1 })
+  @IsInt()
+  @Type(() => Number)
+  @IsOptional()
+  employeeNumber?: number;
+
+  @ApiProperty({ required: false, example: 'M' })
+  @IsString()
+  @IsOptional()
+  gender?: string;
+
+  @ApiProperty({ required: false, example: 'Harris' })
+  @IsString()
+  @IsOptional()
+  firstName?: string;
+
+  @ApiProperty({ required: false, example: 'Baddoe' })
+  @IsString()
+  @IsOptional()
+  lastName?: string;
+
+  @ApiProperty({ required: false, example: 'Linzi' })
+  @IsString()
+  @IsOptional()
+  city?: string;
+
+  @ApiProperty({ required: false, example: 'China' })
+  @IsString()
+  @IsOptional()
+  country?: string;
+
+  @ApiProperty({ required: false, example: 'ajohniganh@drupal.org' })
+  @IsString()
+  @IsOptional()
+  email?: string;
+
+  @ApiProperty({ required: false, example: 'Administrative Officer' })
+  @IsString()
+  @IsOptional()
+  jobTitle?: string;
+}
 
 export class EmployeeDTO {
   @IsUUID()

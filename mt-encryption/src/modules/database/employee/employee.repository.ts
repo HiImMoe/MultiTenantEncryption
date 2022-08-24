@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PagingDTO } from 'src/dto/common';
 import { CreateEmployeeDTO, UpdateEmployeeDTO } from 'src/dto/employee.dto';
 import { EmployeeRepositoryDef } from 'src/repository/employee.repository.def';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { CommonDB } from '../common';
-import { EmployeeModel } from '../models/employee.model';
+import { EmployeeModel, SearchEmployeeModel } from '../models/employee.model';
 import { Employee } from './employee.entity';
 
 @Injectable()
@@ -15,8 +16,8 @@ export class EmployeeRepository extends EmployeeRepositoryDef {
     this.common = new CommonDB(Employee, employeeRepo);
   }
 
-  async getEmployee(where: FindOptionsWhere<Employee>): Promise<EmployeeModel[]> {
-    return await this.employeeRepo.find();
+  async getEmployee(params: SearchEmployeeModel, paging: PagingDTO): Promise<EmployeeModel[]> {
+    return await this.common.get({ ...params }, paging.page, paging.pageSize);
   }
 
   async createEmployee(employeeData: CreateEmployeeDTO): Promise<string> {

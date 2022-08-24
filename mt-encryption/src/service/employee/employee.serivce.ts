@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEmployeeDTO, EmployeeDTO, UpdateEmployeeDTO } from 'src/dto/employee.dto';
-import { EmployeeModel } from 'src/modules/database/models/employee.model';
+import { PagingDTO } from 'src/dto/common';
+import { CreateEmployeeDTO, GetEmployeeReqDTO, UpdateEmployeeDTO } from 'src/dto/employee.dto';
+import { EmployeeModel, SearchEmployeeModel } from 'src/modules/database/models/employee.model';
 import { EmployeeRepositoryDef } from 'src/repository/employee.repository.def';
 
 @Injectable()
@@ -16,8 +17,8 @@ export class EmployeeService {
     return await this.employeeRepo.updateEmployee(id, updateEmployeeData);
   }
 
-  async getEmployee(): Promise<EmployeeModel[]> {
-    const employeeList = await this.employeeRepo.getEmployee({});
+  async getEmployee(params: SearchEmployeeModel, paging: PagingDTO): Promise<EmployeeModel[]> {
+    const employeeList = await this.employeeRepo.getEmployee(params, paging);
     return employeeList;
   }
 }

@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOAuth2, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateEmployeeDTO, EmployeeDTO } from 'src/dto/employee.dto';
+import { CreateEmployeeDTO, EmployeeDTO, GetEmployeeReqDTO } from 'src/dto/employee.dto';
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { EmployeeService } from 'src/service/employee/employee.serivce';
 import { ApiValidationErrorResponse } from 'src/validation';
@@ -18,8 +18,8 @@ export class EmployeeController {
   })
   @ApiValidationErrorResponse()
   @ApiOperation({ summary: 'lists the employees' })
-  async getEmployees(): Promise<EmployeeDTO[]> {
-    const employeeList = await this.employeeService.getEmployee();
+  async getEmployees(@Query() { page, pageSize, ...getParams }: GetEmployeeReqDTO): Promise<EmployeeDTO[]> {
+    const employeeList = await this.employeeService.getEmployee(getParams, { page, pageSize });
     return employeeList;
   }
 

@@ -3,11 +3,11 @@
   "private": true,
   "workspaces": [
     "mt-encryption",
-    "shared-table"
+    "mt-frontend"
   ],
   "scripts": {
     "enc": "yarn workspace mt-encryption",
-    "shared": "yarn workspace shared-table"
+    "frontend": "yarn workspace mt-frontend"
   },
   "dependencies": {
     "artillery": "^2.0.0-22"

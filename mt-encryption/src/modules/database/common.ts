@@ -18,14 +18,14 @@ export class CommonDB<E extends ObjectLiteral> {
     return savedObj.id;
   }
 
-  async get(where: FindOptionsWhere<E>): Promise<E[]> {
+  async get(where: FindOptionsWhere<E>, page = 0, pageSize = 100): Promise<E[]> {
     const ctx: TenantRequestContext = RequestContext.get();
-    let whereOptions: FindOptionsWhere<any> = { ...where };
+    let whereOptions: FindOptionsWhere<E> = { ...where };
     if (ctx) {
       whereOptions = { ...whereOptions, tenantId: ctx.tenantId };
     }
 
-    const res = await this.repo.find({ where: whereOptions });
+    const res = await this.repo.find({ where: whereOptions, skip: page * pageSize, take: pageSize });
     return res;
   }
 
