@@ -7,9 +7,7 @@ export class ImportController {
 
   @Post()
   async importData() {
-    const startDate = new Date();
     await this.importService.importData();
-    const currentDate = new Date();
-    console.log('End', startDate, currentDate);
+    console.log('Finished');
   }
 }

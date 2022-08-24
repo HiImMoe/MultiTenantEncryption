@@ -1,9 +1,11 @@
 import { TenantRequestContext, RequestContext } from 'src/context/tenant-context';
+import { EncryptionRepositoryDef } from 'src/repository/encryption.repository.def';
 import { FindOneOptions, FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
 
 export class CommonDB<E extends ObjectLiteral> {
   private entity: new () => ObjectLiteral;
   private repo: Repository<E>;
+  private encryptionRepo: EncryptionRepositoryDef;
   constructor(entity: new () => ObjectLiteral, repo: Repository<E>) {
     this.entity = entity;
     this.repo = repo;

@@ -25,6 +25,10 @@ export class UserDTO {
 }
 
 export class CreateUserDTO {
+  @ApiProperty()
+  @IsUUID()
+  keycloakId!: string;
+
   @ApiProperty({ example: 'Max', required: true })
   @IsString()
   firstName!: string;

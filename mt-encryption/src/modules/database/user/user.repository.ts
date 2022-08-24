@@ -29,14 +29,7 @@ export class UserRepository extends UserRepositoryDef {
   }
 
   async createUser(userData: CreateUserDTO): Promise<string> {
-    // const key = 'd85117047fd06d3afa79b6e44ee3a52eb426fc24c3a2e3667732e8da0342b4da';
-    // const tenantId = '1';
-    // const userWithTenant: CreateUserWithTenant = { ...userData, tenantId };
-    // const encUser = this.encryptionRepo.enc(userWithTenant, ['secret'], key);
-
     const userId = await this.common.create(userData);
-    // const user = await this.userRepo.create(userData);
-    // const newUser = await this.userRepo.save(user);
     return userId;
   }
 

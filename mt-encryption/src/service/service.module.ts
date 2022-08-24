@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/modules/database/database.module';
 import { EncryptionRepositoryModule } from 'src/modules/encryption/encryption.repository.module';
 import { BoniService } from './boni/boni.service';
@@ -10,7 +10,7 @@ import { TenantService } from './tenant/tenant.service';
 import { UserService } from './user/user.service';
 
 @Module({
-  imports: [DatabaseModule, EncryptionRepositoryModule],
+  imports: [DatabaseModule, EncryptionRepositoryModule, HttpModule],
   providers: [UserService, TenantService, EmployeeService, PerformanceRatingService, BoniService, ImportService, MissingDayService],
   exports: [UserService, TenantService, EmployeeService, ImportService, BoniService, PerformanceRatingService, MissingDayService],
 })
