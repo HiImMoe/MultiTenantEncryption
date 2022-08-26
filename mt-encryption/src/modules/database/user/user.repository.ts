@@ -49,8 +49,8 @@ export class UserRepository extends UserRepositoryDef {
   }
 
   async getUserByIdpId(id: string): Promise<UserModel> {
-    const user = await this.common.get({ keycloakId: id });
-    return this.mapToModel(user[0]);
+    const user = await this.userRepo.findOne({ where: { keycloakId: id } });
+    return this.mapToModel(user);
   }
 
   async getUserById(id: string): Promise<UserModel> {

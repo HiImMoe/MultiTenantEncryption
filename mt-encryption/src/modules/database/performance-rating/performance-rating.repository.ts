@@ -18,7 +18,10 @@ export class PerformanceRatingRepository extends PerformanceRatingRepositoryDef 
     return await this.common.create(data);
   }
 
-  async getPerformanceRating(where: FindOptionsWhere<PerformanceRating>): Promise<PerformanceRating[]> {
-    return await this.common.get(where);
+  async getPerformanceRating(employeeId: string): Promise<PerformanceRating[]> {
+    const builder = this.performanceRatingRepo.createQueryBuilder('performanceRating').orderBy('id');
+    builder.andWhere({ employeeId });
+    const res = await this.common.get(builder);
+    return res.results;
   }
 }

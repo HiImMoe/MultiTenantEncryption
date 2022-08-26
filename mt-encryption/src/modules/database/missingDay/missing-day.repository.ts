@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMissingDayDTO } from 'src/dto/missing-days.dto';
 import { MissingDayRepositoryDef } from 'src/repository/missing-day.repository.def';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CommonDB } from '../common';
 import { MissingDaysModel } from '../models/missing-days.model';
 import { MissingDay } from './missing-day.entity';
@@ -19,7 +19,10 @@ export class MissingDayRepository extends MissingDayRepositoryDef {
     return await this.common.create(data);
   }
 
-  async getMissingDays(where: FindOptionsWhere<MissingDay>): Promise<MissingDaysModel[]> {
-    return await this.common.get(where);
+  async getMissingDays(employeeId: string): Promise<MissingDaysModel[]> {
+    const builder = this.missingDayRepo.createQueryBuilder('missingDays').orderBy('id');
+    builder.andWhere({ employeeId });
+    const res = await this.common.get(builder);
+    return res.results;
   }
 }

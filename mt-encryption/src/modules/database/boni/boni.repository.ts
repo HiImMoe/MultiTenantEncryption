@@ -19,7 +19,10 @@ export class BoniRepository extends BoniRepositoryDef {
     return await this.common.create(data);
   }
 
-  async getBoni(where: FindOptionsWhere<Boni>): Promise<BoniModel[]> {
-    return await this.common.get(where);
+  async getBoni(employeeId: string): Promise<BoniModel[]> {
+    const builder = this.boniRepo.createQueryBuilder('boni');
+    builder.andWhere({ employeeId });
+    const res = await this.common.get(builder);
+    return res.results;
   }
 }

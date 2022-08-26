@@ -10,7 +10,7 @@ export class MissingDayService {
     return await this.missingDayRepo.createMissingDay(data);
   }
 
-  async getMissingDays() {
-    return await this.missingDayRepo.getMissingDays({});
+  async getMissingDays(employeeId: string) {
+    return await this.missingDayRepo.getMissingDays(employeeId);
   }
 }

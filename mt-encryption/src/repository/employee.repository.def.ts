@@ -5,5 +5,6 @@ import { EmployeeModel, SearchEmployeeModel } from 'src/modules/database/models/
 export abstract class EmployeeRepositoryDef {
   abstract createEmployee(employeeData: CreateEmployeeDTO): Promise<string>;
   abstract getEmployee(params: SearchEmployeeModel, paging: PagingDTO): Promise<EmployeeModel[]>;
+  abstract getEmployeeById(id: string): Promise<EmployeeModel>;
   abstract updateEmployee(id: string, employeeData: UpdateEmployeeDTO): Promise<void>;
 }

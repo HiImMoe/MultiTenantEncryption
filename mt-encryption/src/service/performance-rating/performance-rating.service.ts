@@ -9,4 +9,8 @@ export class PerformanceRatingService {
   async createPerformanceRating(data: CreatePerformanceRatingDTO) {
     return await this.performanceRatingRepo.createPerformanceRating(data);
   }
+
+  async getPerformanceRating(employeeId: string) {
+    return await this.performanceRatingRepo.getPerformanceRating(employeeId);
+  }
 }

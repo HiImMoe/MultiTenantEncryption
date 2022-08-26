@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOAuth2, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateEmployeeDTO, EmployeeDTO, GetEmployeeReqDTO } from 'src/dto/employee.dto';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOAuth2, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { CreateEmployeeDTO, EmployeeDetailDTO, EmployeeDTO, GetEmployeeReqDTO, UpdateEmployeeDTO } from 'src/dto/employee.dto';
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { EmployeeService } from 'src/service/employee/employee.serivce';
 import { ApiValidationErrorResponse } from 'src/validation';
@@ -23,6 +23,17 @@ export class EmployeeController {
     return employeeList;
   }
 
+  @Get('/:employeeId')
+  @ApiOkResponse({
+    description: 'get employee with all information',
+  })
+  @ApiValidationErrorResponse()
+  @ApiOperation({ summary: 'get employee with details' })
+  async getEmployeeDetails(@Param('employeeId', ParseUUIDPipe) employeeId: string): Promise<EmployeeDetailDTO> {
+    const employee = await this.employeeService.getEmployeeDetails(employeeId);
+    return employee;
+  }
+
   @Post()
   @ApiCreatedResponse({
     description: 'id of the new employee',
@@ -33,5 +44,12 @@ export class EmployeeController {
   async createEmployee(@Body() createEmployee: CreateEmployeeDTO): Promise<string> {
     const employee = await this.employeeService.createEmployee(createEmployee);
     return employee;
+  }
+
+  @Patch('/:employeeId')
+  @ApiParam({ name: 'employeeId' })
+  @ApiOperation({ summary: 'Update employee' })
+  async updateEmployee(@Param('employeeId', ParseUUIDPipe) employeeId: string, @Body() employeeData: UpdateEmployeeDTO) {
+    return await this.employeeService.updateEmployee(employeeId, employeeData);
   }
 }

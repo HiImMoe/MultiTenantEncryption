@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EmployeeApi } from 'src/api';
+import { CreateEmployeeDTO, EmployeeApi } from 'src/api';
 import { ApiService } from './api.service';
 
 @Injectable()
@@ -13,6 +13,18 @@ export class EmployeeService {
       employeeNumber: 1,
       page: 0,
       pageSize: 10,
+    });
+    return req.data;
+  }
+
+  async createEmployee(
+    token: string,
+    employeeData: CreateEmployeeDTO,
+  ): Promise<string> {
+    const config = this.apiService.getApiConfig(token);
+    const employeeApi = new EmployeeApi(config);
+    const req = await employeeApi.employeeControllerCreateEmployee({
+      createEmployeeDTO: employeeData,
     });
     return req.data;
   }

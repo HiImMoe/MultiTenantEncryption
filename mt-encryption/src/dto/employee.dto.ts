@@ -1,7 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsInt, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsInt, IsNumber, IsObject, IsOptional, IsString, IsUUID } from 'class-validator';
+import { BoniDTO } from './boni.dto';
 import { PagingDTO } from './common';
+import { MissingDaysDTO } from './missing-days.dto';
+import { PerformanceRatingDTO } from './performance-rating.dto';
 
 export class GetEmployeeReqDTO extends PagingDTO {
   @ApiProperty({ required: false, example: 1 })
@@ -85,6 +88,17 @@ export class EmployeeDTO {
 
   @IsString()
   iban!: string;
+}
+
+export class EmployeeDetailDTO extends EmployeeDTO {
+  @IsObject()
+  boni!: BoniDTO[];
+
+  @IsObject()
+  missingDays!: MissingDaysDTO[];
+
+  @IsObject()
+  performanceRatings!: PerformanceRatingDTO[];
 }
 
 export class CreateEmployeeDTO {

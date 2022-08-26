@@ -1,6 +1,7 @@
 import { TenantRequestContext, RequestContext } from 'src/context/tenant-context';
+import { PagingDTO } from 'src/dto/common';
 import { EncryptionRepositoryDef } from 'src/repository/encryption.repository.def';
-import { FindOneOptions, FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
+import { FindOneOptions, FindOptionsWhere, ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
 
 export class CommonDB<E extends ObjectLiteral> {
   private entity: new () => ObjectLiteral;
@@ -18,15 +19,20 @@ export class CommonDB<E extends ObjectLiteral> {
     return savedObj.id;
   }
 
-  async get(where: FindOptionsWhere<E>, page = 0, pageSize = 100): Promise<E[]> {
+  async get(builder: SelectQueryBuilder<E>, paging?: PagingDTO): Promise<{ results: E[]; totalCount: number }> {
     const ctx: TenantRequestContext = RequestContext.get();
-    let whereOptions: FindOptionsWhere<E> = { ...where };
     if (ctx) {
-      whereOptions = { ...whereOptions, tenantId: ctx.tenantId };
+      builder.andWhere({ tenantId: ctx.tenantId });
     }
-
-    const res = await this.repo.find({ where: whereOptions, skip: page * pageSize, take: pageSize });
-    return res;
+    if (paging) {
+      builder.skip(paging.pageSize * paging.page);
+      builder.take(paging.pageSize);
+    }
+    const [results, count] = await builder.getManyAndCount();
+    return {
+      results,
+      totalCount: count,
+    };
   }
 
   async getById(id: string): Promise<E> {
