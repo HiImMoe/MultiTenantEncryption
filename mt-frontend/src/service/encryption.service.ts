@@ -20,7 +20,7 @@ export class EncryptionService {
   private encryptValue(value: string, key: string) {
     const iv = randomBytes(this.ivLength);
     const cipher = createCipheriv(this.algorithm, Buffer.from(key, 'hex'), iv);
-    const start = cipher.update(value);
+    const start = cipher.update(value.toString());
     const final = cipher.final();
     const encryptedText = Buffer.concat([iv, start, final]);
 

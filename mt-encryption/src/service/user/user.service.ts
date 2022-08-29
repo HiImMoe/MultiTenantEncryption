@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { scrypt } from 'crypto';
 import { CreateUserDTO, UserDTO } from 'src/dto/user.dto';
 import { UserModel } from 'src/modules/database/models/user.model';
 import { UserRepositoryDef } from 'src/repository/user.repository.def';
+import { promisify } from 'util';
 
 @Injectable()
 export class UserService {

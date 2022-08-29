@@ -17,80 +17,80 @@
 /**
  * 
  * @export
- * @interface CreateEmployeeDTO
+ * @interface UpdateEmployeeDTO
  */
-export interface CreateEmployeeDTO {
+export interface UpdateEmployeeDTO {
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'employeeNumber': string;
+    'employeeNumber'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'gender': string;
+    'gender'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'firstName': string;
+    'firstName'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'lastName': string;
+    'lastName'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'street': string;
+    'street'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'city': string;
+    'city'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'country': string;
+    'country'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'email': string;
+    'email'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'phone': string;
+    'phone'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'jobTitle': string;
+    'jobTitle'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'ssn': string;
+    'ssn'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof UpdateEmployeeDTO
      */
-    'iban': string;
+    'iban'?: string;
 }
 

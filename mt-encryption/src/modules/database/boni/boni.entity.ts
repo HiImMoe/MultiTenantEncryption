@@ -17,7 +17,7 @@ export class Boni extends BaseEntity {
   date: string;
 
   @Column()
-  amount: number;
+  amount: string;
 
   @Column()
   boniReason: string;

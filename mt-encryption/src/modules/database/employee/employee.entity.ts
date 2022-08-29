@@ -7,7 +7,7 @@ export class Employee extends BaseEntity {
   id: string;
 
   @Column()
-  employeeNumber: number;
+  employeeNumber: string;
 
   @Column()
   gender: string;

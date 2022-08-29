@@ -36,7 +36,6 @@ export class EmployeeService {
     const missingDays = await this.missingDayService.getMissingDays(id);
     const boni = await this.boniService.getBoni(id);
     const pR = await this.performanceRatingService.getPerformanceRating(id);
-    console.log(pR.length);
     return mapDetailEmployee(employee, boni, pR, missingDays);
   }
 }

@@ -14,8 +14,11 @@
 
 
 
+export * from './api/boni-api';
 export * from './api/default-api';
 export * from './api/employee-api';
+export * from './api/missing-days-api';
+export * from './api/performance-rating-api';
 export * from './api/tenant-api';
 export * from './api/user-api';
 

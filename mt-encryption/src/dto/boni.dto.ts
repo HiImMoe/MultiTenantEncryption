@@ -9,8 +9,8 @@ export class BoniDTO {
   @IsString()
   date!: string;
 
-  @IsNumber()
-  amount!: number;
+  @IsString()
+  amount!: string;
 
   @IsString()
   boniReason!: string;
@@ -23,7 +23,7 @@ export class CreateBoniDTO {
   @IsString()
   date!: string;
 
-  @IsNumber()
+  @IsString()
   amount!: string;
 
   @IsString()

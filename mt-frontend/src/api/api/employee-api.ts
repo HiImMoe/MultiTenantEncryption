@@ -22,6 +22,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { CreateEmployeeDTO } from '../dto';
+// @ts-ignore
+import { UpdateEmployeeDTO } from '../dto';
 /**
  * EmployeeApi - axios parameter creator
  * @export
@@ -70,10 +72,48 @@ export const EmployeeApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @summary get employee with details
+         * @param {string} employeeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        employeeControllerGetEmployeeDetails: async (employeeId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'employeeId' is not null or undefined
+            assertParamExists('employeeControllerGetEmployeeDetails', 'employeeId', employeeId)
+            const localVarPath = `/employee/{employeeId}`
+                .replace(`{${"employeeId"}}`, encodeURIComponent(String(employeeId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication oauth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "oauth2", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary lists the employees
          * @param {number} [page] 
          * @param {number} [pageSize] 
-         * @param {number} [employeeNumber] 
+         * @param {string} [employeeNumber] 
          * @param {string} [gender] 
          * @param {string} [firstName] 
          * @param {string} [lastName] 
@@ -84,7 +124,7 @@ export const EmployeeApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        employeeControllerGetEmployees: async (page?: number, pageSize?: number, employeeNumber?: number, gender?: string, firstName?: string, lastName?: string, city?: string, country?: string, email?: string, jobTitle?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        employeeControllerGetEmployees: async (page?: number, pageSize?: number, employeeNumber?: string, gender?: string, firstName?: string, lastName?: string, city?: string, country?: string, email?: string, jobTitle?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/employee`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -152,6 +192,50 @@ export const EmployeeApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Update employee
+         * @param {string} employeeId 
+         * @param {UpdateEmployeeDTO} updateEmployeeDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        employeeControllerUpdateEmployee: async (employeeId: string, updateEmployeeDTO: UpdateEmployeeDTO, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'employeeId' is not null or undefined
+            assertParamExists('employeeControllerUpdateEmployee', 'employeeId', employeeId)
+            // verify required parameter 'updateEmployeeDTO' is not null or undefined
+            assertParamExists('employeeControllerUpdateEmployee', 'updateEmployeeDTO', updateEmployeeDTO)
+            const localVarPath = `/employee/{employeeId}`
+                .replace(`{${"employeeId"}}`, encodeURIComponent(String(employeeId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication oauth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "oauth2", [], configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateEmployeeDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -175,10 +259,21 @@ export const EmployeeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary get employee with details
+         * @param {string} employeeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async employeeControllerGetEmployeeDetails(employeeId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.employeeControllerGetEmployeeDetails(employeeId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary lists the employees
          * @param {number} [page] 
          * @param {number} [pageSize] 
-         * @param {number} [employeeNumber] 
+         * @param {string} [employeeNumber] 
          * @param {string} [gender] 
          * @param {string} [firstName] 
          * @param {string} [lastName] 
@@ -189,8 +284,20 @@ export const EmployeeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async employeeControllerGetEmployees(page?: number, pageSize?: number, employeeNumber?: number, gender?: string, firstName?: string, lastName?: string, city?: string, country?: string, email?: string, jobTitle?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async employeeControllerGetEmployees(page?: number, pageSize?: number, employeeNumber?: string, gender?: string, firstName?: string, lastName?: string, city?: string, country?: string, email?: string, jobTitle?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.employeeControllerGetEmployees(page, pageSize, employeeNumber, gender, firstName, lastName, city, country, email, jobTitle, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update employee
+         * @param {string} employeeId 
+         * @param {UpdateEmployeeDTO} updateEmployeeDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async employeeControllerUpdateEmployee(employeeId: string, updateEmployeeDTO: UpdateEmployeeDTO, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.employeeControllerUpdateEmployee(employeeId, updateEmployeeDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -215,10 +322,20 @@ export const EmployeeApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @summary get employee with details
+         * @param {string} employeeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        employeeControllerGetEmployeeDetails(employeeId: string, options?: any): AxiosPromise<void> {
+            return localVarFp.employeeControllerGetEmployeeDetails(employeeId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary lists the employees
          * @param {number} [page] 
          * @param {number} [pageSize] 
-         * @param {number} [employeeNumber] 
+         * @param {string} [employeeNumber] 
          * @param {string} [gender] 
          * @param {string} [firstName] 
          * @param {string} [lastName] 
@@ -229,8 +346,19 @@ export const EmployeeApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        employeeControllerGetEmployees(page?: number, pageSize?: number, employeeNumber?: number, gender?: string, firstName?: string, lastName?: string, city?: string, country?: string, email?: string, jobTitle?: string, options?: any): AxiosPromise<void> {
+        employeeControllerGetEmployees(page?: number, pageSize?: number, employeeNumber?: string, gender?: string, firstName?: string, lastName?: string, city?: string, country?: string, email?: string, jobTitle?: string, options?: any): AxiosPromise<void> {
             return localVarFp.employeeControllerGetEmployees(page, pageSize, employeeNumber, gender, firstName, lastName, city, country, email, jobTitle, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update employee
+         * @param {string} employeeId 
+         * @param {UpdateEmployeeDTO} updateEmployeeDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        employeeControllerUpdateEmployee(employeeId: string, updateEmployeeDTO: UpdateEmployeeDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.employeeControllerUpdateEmployee(employeeId, updateEmployeeDTO, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -247,6 +375,20 @@ export interface EmployeeApiEmployeeControllerCreateEmployeeRequest {
      * @memberof EmployeeApiEmployeeControllerCreateEmployee
      */
     readonly createEmployeeDTO: CreateEmployeeDTO
+}
+
+/**
+ * Request parameters for employeeControllerGetEmployeeDetails operation in EmployeeApi.
+ * @export
+ * @interface EmployeeApiEmployeeControllerGetEmployeeDetailsRequest
+ */
+export interface EmployeeApiEmployeeControllerGetEmployeeDetailsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmployeeApiEmployeeControllerGetEmployeeDetails
+     */
+    readonly employeeId: string
 }
 
 /**
@@ -271,10 +413,10 @@ export interface EmployeeApiEmployeeControllerGetEmployeesRequest {
 
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof EmployeeApiEmployeeControllerGetEmployees
      */
-    readonly employeeNumber?: number
+    readonly employeeNumber?: string
 
     /**
      * 
@@ -327,6 +469,27 @@ export interface EmployeeApiEmployeeControllerGetEmployeesRequest {
 }
 
 /**
+ * Request parameters for employeeControllerUpdateEmployee operation in EmployeeApi.
+ * @export
+ * @interface EmployeeApiEmployeeControllerUpdateEmployeeRequest
+ */
+export interface EmployeeApiEmployeeControllerUpdateEmployeeRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmployeeApiEmployeeControllerUpdateEmployee
+     */
+    readonly employeeId: string
+
+    /**
+     * 
+     * @type {UpdateEmployeeDTO}
+     * @memberof EmployeeApiEmployeeControllerUpdateEmployee
+     */
+    readonly updateEmployeeDTO: UpdateEmployeeDTO
+}
+
+/**
  * EmployeeApi - object-oriented interface
  * @export
  * @class EmployeeApi
@@ -347,6 +510,18 @@ export class EmployeeApi extends BaseAPI {
 
     /**
      * 
+     * @summary get employee with details
+     * @param {EmployeeApiEmployeeControllerGetEmployeeDetailsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmployeeApi
+     */
+    public employeeControllerGetEmployeeDetails(requestParameters: EmployeeApiEmployeeControllerGetEmployeeDetailsRequest, options?: AxiosRequestConfig) {
+        return EmployeeApiFp(this.configuration).employeeControllerGetEmployeeDetails(requestParameters.employeeId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary lists the employees
      * @param {EmployeeApiEmployeeControllerGetEmployeesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -355,5 +530,17 @@ export class EmployeeApi extends BaseAPI {
      */
     public employeeControllerGetEmployees(requestParameters: EmployeeApiEmployeeControllerGetEmployeesRequest = {}, options?: AxiosRequestConfig) {
         return EmployeeApiFp(this.configuration).employeeControllerGetEmployees(requestParameters.page, requestParameters.pageSize, requestParameters.employeeNumber, requestParameters.gender, requestParameters.firstName, requestParameters.lastName, requestParameters.city, requestParameters.country, requestParameters.email, requestParameters.jobTitle, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update employee
+     * @param {EmployeeApiEmployeeControllerUpdateEmployeeRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmployeeApi
+     */
+    public employeeControllerUpdateEmployee(requestParameters: EmployeeApiEmployeeControllerUpdateEmployeeRequest, options?: AxiosRequestConfig) {
+        return EmployeeApiFp(this.configuration).employeeControllerUpdateEmployee(requestParameters.employeeId, requestParameters.updateEmployeeDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }

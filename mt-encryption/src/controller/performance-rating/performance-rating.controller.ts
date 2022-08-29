@@ -9,7 +9,7 @@ import { ApiValidationErrorResponse } from 'src/validation';
 @ApiTags('PerformanceRating')
 @UseGuards(JwtAuthGuard)
 @Controller('/performance-rating')
-export class MissingDaysController {
+export class PerformanceRatingController {
   constructor(private performanceRatingService: PerformanceRatingService) {}
 
   @Post()

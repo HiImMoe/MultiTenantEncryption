@@ -9,7 +9,7 @@ import { ApiValidationErrorResponse } from 'src/validation';
 @ApiTags('Boni')
 @UseGuards(JwtAuthGuard)
 @Controller('/boni')
-export class MissingDaysController {
+export class BoniController {
   constructor(private boniService: BoniService) {}
 
   @Post()

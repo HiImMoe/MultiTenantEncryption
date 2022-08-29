@@ -1,17 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsInt, IsNumber, IsObject, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsObject, IsOptional, IsString, IsUUID } from 'class-validator';
 import { BoniDTO } from './boni.dto';
 import { PagingDTO } from './common';
 import { MissingDaysDTO } from './missing-days.dto';
 import { PerformanceRatingDTO } from './performance-rating.dto';
 
 export class GetEmployeeReqDTO extends PagingDTO {
-  @ApiProperty({ required: false, example: 1 })
-  @IsInt()
-  @Type(() => Number)
+  @ApiProperty({ required: false, example: '1' })
   @IsOptional()
-  employeeNumber?: number;
+  employeeNumber?: string;
 
   @ApiProperty({ required: false, example: 'M' })
   @IsString()
@@ -53,8 +50,8 @@ export class EmployeeDTO {
   @IsUUID()
   id!: string;
 
-  @IsNumber()
-  employeeNumber!: number;
+  @IsString()
+  employeeNumber!: string;
 
   @IsString()
   gender!: string;
@@ -102,8 +99,8 @@ export class EmployeeDetailDTO extends EmployeeDTO {
 }
 
 export class CreateEmployeeDTO {
-  @IsNumber()
-  employeeNumber!: number;
+  @IsString()
+  employeeNumber!: string;
 
   @IsString()
   gender!: string;
@@ -140,9 +137,9 @@ export class CreateEmployeeDTO {
 }
 
 export class UpdateEmployeeDTO {
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  employeeNumber?: number;
+  employeeNumber?: string;
 
   @IsString()
   @IsOptional()

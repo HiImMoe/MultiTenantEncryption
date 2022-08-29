@@ -57,14 +57,14 @@ export class ImportService {
     const keycloakUserId = await this.importKeycloakUser(currentTenantNumber);
     this.userService.createUser({ firstName: 'Test', lastName: 'Tenant', isActive: true, keycloakId: keycloakUserId });
 
-    const employeeList: CreateEmployeeDTO[] = this.importFileData('employee.json');
-    for (let i = 0; i < calcTenantSize(tenantNumber, NUMBER_OF_TENANTS, MAX_EMPLOYEE_SIZE); i++) {
-      const employeeId = await this.employeeService.createEmployee({ ...employeeList[i], employeeNumber: i });
-      const performanceRatingPromise = this.createPerformanceRatings(employeeId, 10);
-      const boniPromise = this.createBoni(employeeId, 10);
-      const missingDaysPromise = this.createMissingDays(employeeId, 10);
-      await Promise.all([performanceRatingPromise, boniPromise, missingDaysPromise]);
-    }
+    // const employeeList: CreateEmployeeDTO[] = this.importFileData('employee.json');
+    // for (let i = 0; i < calcTenantSize(tenantNumber, NUMBER_OF_TENANTS, MAX_EMPLOYEE_SIZE); i++) {
+    //   const employeeId = await this.employeeService.createEmployee({ ...employeeList[i], employeeNumber: i.toString() });
+    //   const performanceRatingPromise = this.createPerformanceRatings(employeeId, 10);
+    //   const boniPromise = this.createBoni(employeeId, 10);
+    //   const missingDaysPromise = this.createMissingDays(employeeId, 10);
+    //   await Promise.all([performanceRatingPromise, boniPromise, missingDaysPromise]);
+    // }
   }
 
   async importKeycloakUser(tenantNumber) {
