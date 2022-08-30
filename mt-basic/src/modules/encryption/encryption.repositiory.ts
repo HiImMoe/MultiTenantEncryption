@@ -2,19 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 
 @Injectable()
-export class EncryptionService {
+export class EncryptionRepository {
   ivLength = 16;
   algorithm = 'aes-256-ctr';
 
   enc<T>(plainObject: T, objectKeysToEncrypt: string[], key: string): T {
     const encryptedObject = { ...plainObject };
-    objectKeysToEncrypt.forEach((objectKey) => {
-      if (encryptedObject[objectKey]) {
-        encryptedObject[objectKey] = this.encryptValue(
-          plainObject[objectKey],
-          key,
-        );
-      }
+    objectKeysToEncrypt.forEach(objectKey => {
+      encryptedObject[objectKey] = this.encryptValue(plainObject[objectKey], key);
     });
     return encryptedObject;
   }
@@ -22,7 +17,7 @@ export class EncryptionService {
   private encryptValue(value: string, key: string) {
     const iv = randomBytes(this.ivLength);
     const cipher = createCipheriv(this.algorithm, Buffer.from(key, 'hex'), iv);
-    const start = cipher.update(value.toString());
+    const start = cipher.update(value);
     const final = cipher.final();
     const encryptedText = Buffer.concat([iv, start, final]);
 
@@ -31,11 +26,8 @@ export class EncryptionService {
 
   dec<T>(encryptedObject: T, objectKeysToEncrypt: string[], key: string): T {
     const plainObject = { ...encryptedObject };
-    objectKeysToEncrypt.forEach((objectKey) => {
-      plainObject[objectKey] = this.decryptValue(
-        encryptedObject[objectKey],
-        key,
-      );
+    objectKeysToEncrypt.forEach(objectKey => {
+      plainObject[objectKey] = this.decryptValue(encryptedObject[objectKey], key);
     });
     return plainObject;
   }
@@ -43,11 +35,7 @@ export class EncryptionService {
   private decryptValue(value: string, key: string) {
     const encryptedText = Buffer.from(value, 'hex');
     const iv = encryptedText.slice(0, this.ivLength);
-    const decipher = createDecipheriv(
-      this.algorithm,
-      Buffer.from(key, 'hex'),
-      iv,
-    );
+    const decipher = createDecipheriv(this.algorithm, Buffer.from(key, 'hex'), iv);
     const dataToUse = encryptedText.slice(this.ivLength);
     const start = decipher.update(dataToUse);
     const final = decipher.final();

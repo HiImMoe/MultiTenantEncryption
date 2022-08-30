@@ -1,7 +1,17 @@
 import { Request } from 'express';
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { EmployeeService } from 'src/service/employee.service';
 import { CreateEmployeeDTO } from 'src/api';
+import { UpdateEmployeeDTO } from 'src/api/dto/update-employee-dto';
 
 @Controller('/employee')
 export class EmployeeController {
@@ -19,6 +29,19 @@ export class EmployeeController {
   ): Promise<any> {
     return await this.employeeService.createEmployee(
       req.headers.authorization,
+      employeeData,
+    );
+  }
+
+  @Patch('/:employeeId')
+  async updateEmployee(
+    @Req() req: Request,
+    @Param('employeeId', ParseUUIDPipe) employeeId: string,
+    @Body() employeeData: UpdateEmployeeDTO,
+  ) {
+    return this.employeeService.updateEmployee(
+      req.headers.authorization,
+      employeeId,
       employeeData,
     );
   }
