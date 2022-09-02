@@ -15,6 +15,8 @@ export class EmployeeController {
   @Get()
   @ApiOkResponse({
     description: 'list of employees',
+    type: EmployeeDTO,
+    isArray: true,
   })
   @ApiValidationErrorResponse()
   @ApiOperation({ summary: 'lists the employees' })

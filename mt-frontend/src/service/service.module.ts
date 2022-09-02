@@ -4,6 +4,7 @@ import { ApiService } from './api.service';
 import { BoniService } from './boni.service';
 import { EmployeeService } from './employee.service';
 import { EncryptionService } from './encryption.service';
+import { HashService } from './hash.service';
 import { KeyService } from './key.service';
 import { MissingDaysService } from './missing-days.service';
 import { PerformanceRatingService } from './performance-rating.service';
@@ -18,6 +19,7 @@ import { PerformanceRatingService } from './performance-rating.service';
     PerformanceRatingService,
     MissingDaysService,
     KeyService,
+    HashService,
   ],
   exports: [
     EmployeeService,
@@ -25,6 +27,7 @@ import { PerformanceRatingService } from './performance-rating.service';
     PerformanceRatingService,
     MissingDaysService,
     KeyService,
+    HashService,
   ],
 })
 export class ServiceModule {}

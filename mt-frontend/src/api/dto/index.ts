@@ -4,6 +4,7 @@ export * from './create-missing-day-dto';
 export * from './create-performance-rating-dto';
 export * from './create-tenant-dto';
 export * from './create-user-dto';
+export * from './employee-dto';
 export * from './tenant-dto';
 export * from './update-employee-dto';
 export * from './user-dto';

@@ -18,6 +18,7 @@ dto/create-missing-day-dto.ts
 dto/create-performance-rating-dto.ts
 dto/create-tenant-dto.ts
 dto/create-user-dto.ts
+dto/employee-dto.ts
 dto/index.ts
 dto/tenant-dto.ts
 dto/update-employee-dto.ts

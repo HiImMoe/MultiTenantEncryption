@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsObject, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsObject, IsOptional, IsString, IsUUID } from 'class-validator';
 import { BoniDTO } from './boni.dto';
 import { PagingDTO } from './common';
 import { MissingDaysDTO } from './missing-days.dto';
@@ -24,21 +24,6 @@ export class GetEmployeeReqDTO extends PagingDTO {
   @IsString()
   @IsOptional()
   lastName?: string;
-
-  @ApiProperty({ required: false, example: 'Linzi' })
-  @IsString()
-  @IsOptional()
-  city?: string;
-
-  @ApiProperty({ required: false, example: 'China' })
-  @IsString()
-  @IsOptional()
-  country?: string;
-
-  @ApiProperty({ required: false, example: 'ajohniganh@drupal.org' })
-  @IsString()
-  @IsOptional()
-  email?: string;
 
   @ApiProperty({ required: false, example: 'Administrative Officer' })
   @IsString()
@@ -102,14 +87,26 @@ export class CreateEmployeeDTO {
   @IsString()
   employeeNumber!: string;
 
+  @IsArray()
+  employeeNumber_bi!: string[];
+
   @IsString()
   gender!: string;
+
+  @IsArray()
+  gender_bi!: string[];
 
   @IsString()
   firstName!: string;
 
+  @IsArray()
+  firstName_bi!: string[];
+
   @IsString()
   lastName!: string;
+
+  @IsArray()
+  lastName_bi!: string[];
 
   @IsString()
   street!: string;
@@ -129,6 +126,9 @@ export class CreateEmployeeDTO {
   @IsString()
   jobTitle!: string;
 
+  @IsArray()
+  jobTitle_bi!: string[];
+
   @IsString()
   ssn!: string;
 
@@ -141,17 +141,33 @@ export class UpdateEmployeeDTO {
   @IsOptional()
   employeeNumber?: string;
 
+  @IsArray()
+  @IsOptional()
+  employeeNumber_bi?: string[];
+
   @IsString()
   @IsOptional()
   gender?: string;
+
+  @IsArray()
+  @IsOptional()
+  gender_bi?: string[];
 
   @IsString()
   @IsOptional()
   firstName?: string;
 
+  @IsArray()
+  @IsOptional()
+  firstName_bi?: string[];
+
   @IsString()
   @IsOptional()
   lastName?: string;
+
+  @IsArray()
+  @IsOptional()
+  lastName_bi?: string[];
 
   @IsString()
   @IsOptional()
@@ -176,6 +192,10 @@ export class UpdateEmployeeDTO {
   @IsString()
   @IsOptional()
   jobTitle?: string;
+
+  @IsArray()
+  @IsOptional()
+  jobTitle_bi?: string[];
 
   @IsString()
   @IsOptional()

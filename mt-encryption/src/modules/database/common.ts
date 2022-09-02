@@ -24,7 +24,7 @@ export class CommonDB<E extends ObjectLiteral> {
     if (ctx) {
       builder.andWhere({ tenantId: ctx.tenantId });
     }
-    if (paging) {
+    if (paging && paging.page && paging.pageSize) {
       builder.skip(paging.pageSize * paging.page);
       builder.take(paging.pageSize);
     }

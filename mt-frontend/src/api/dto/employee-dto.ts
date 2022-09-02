@@ -17,109 +17,85 @@
 /**
  * 
  * @export
- * @interface CreateEmployeeDTO
+ * @interface EmployeeDTO
  */
-export interface CreateEmployeeDTO {
+export interface EmployeeDTO {
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmployeeDTO
      */
     'employeeNumber': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof CreateEmployeeDTO
-     */
-    'employeeNumber_bi': Array<string>;
-    /**
-     * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'gender': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof CreateEmployeeDTO
-     */
-    'gender_bi': Array<string>;
-    /**
-     * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'firstName': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof CreateEmployeeDTO
-     */
-    'firstName_bi': Array<string>;
-    /**
-     * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'lastName': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof CreateEmployeeDTO
-     */
-    'lastName_bi': Array<string>;
-    /**
-     * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'street': string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'city': string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'country': string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'email': string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'phone': string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'jobTitle': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof CreateEmployeeDTO
-     */
-    'jobTitle_bi': Array<string>;
-    /**
-     * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'ssn': string;
     /**
      * 
      * @type {string}
-     * @memberof CreateEmployeeDTO
+     * @memberof EmployeeDTO
      */
     'iban': string;
 }

@@ -16,43 +16,49 @@ export class EmployeeRepository extends EmployeeRepositoryDef {
     this.common = new CommonDB(Employee, employeeRepo);
   }
 
+  mapEmployee(employeeEntity: Employee): EmployeeModel {
+    return {
+      id: employeeEntity.id,
+      employeeNumber: employeeEntity.employeeNumber,
+      gender: employeeEntity.gender,
+      firstName: employeeEntity.firstName,
+      lastName: employeeEntity.lastName,
+      email: employeeEntity.email,
+      phone: employeeEntity.phone,
+      street: employeeEntity.street,
+      city: employeeEntity.city,
+      country: employeeEntity.country,
+      iban: employeeEntity.iban,
+      jobTitle: employeeEntity.jobTitle,
+      ssn: employeeEntity.ssn,
+    };
+  }
+
   async getEmployee(params: SearchEmployeeModel, paging: PagingDTO): Promise<EmployeeModel[]> {
-    const builder = this.employeeRepo.createQueryBuilder('employee').orderBy('employee.employeeNumber');
+    const builder = this.employeeRepo.createQueryBuilder('employee');
 
     if (params.firstName) {
-      builder.andWhere({ firstName: params.firstName });
+      builder.andWhere('employee.firstName_bi LIKE :firstName', { firstName: `%${params.firstName}%` });
     }
 
     if (params.lastName) {
-      builder.andWhere({ lastName: params.lastName });
+      builder.andWhere('employee.lastName_bi LIKE :lastName', { lastName: `%${params.lastName}%` });
     }
 
     if (params.employeeNumber) {
-      builder.andWhere({ employeeNumber: params.employeeNumber });
-    }
-
-    if (params.email) {
-      builder.andWhere({ email: params.email });
+      builder.andWhere('employee.employeeNumber_bi LIKE :employeeNumber', { employeeNumber: `%${params.employeeNumber}%` });
     }
 
     if (params.gender) {
-      builder.andWhere({ gender: params.gender });
-    }
-
-    if (params.city) {
-      builder.andWhere({ city: params.city });
-    }
-
-    if (params.country) {
-      builder.andWhere({ country: params.country });
+      builder.andWhere('employee.gender_bi LIKE :gender', { gender: `%${params.gender}%` });
     }
 
     if (params.jobTitle) {
-      builder.andWhere({ jobTitle: params.jobTitle });
+      builder.andWhere('employee.jobTitle_bi LIKE :jobTitle', { jobTitle: `%${params.jobTitle}%` });
     }
 
     const res = await this.common.get(builder, paging);
-    return res.results;
+    return res.results.map(emp => this.mapEmployee(emp));
   }
 
   async getEmployeeById(id: string): Promise<EmployeeModel> {

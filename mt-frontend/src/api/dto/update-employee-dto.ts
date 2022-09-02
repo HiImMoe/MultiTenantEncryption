@@ -28,10 +28,22 @@ export interface UpdateEmployeeDTO {
     'employeeNumber'?: string;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof UpdateEmployeeDTO
+     */
+    'employeeNumber_bi'?: Array<string>;
+    /**
+     * 
      * @type {string}
      * @memberof UpdateEmployeeDTO
      */
     'gender'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdateEmployeeDTO
+     */
+    'gender_bi'?: Array<string>;
     /**
      * 
      * @type {string}
@@ -40,10 +52,22 @@ export interface UpdateEmployeeDTO {
     'firstName'?: string;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof UpdateEmployeeDTO
+     */
+    'firstName_bi'?: Array<string>;
+    /**
+     * 
      * @type {string}
      * @memberof UpdateEmployeeDTO
      */
     'lastName'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdateEmployeeDTO
+     */
+    'lastName_bi'?: Array<string>;
     /**
      * 
      * @type {string}
@@ -80,6 +104,12 @@ export interface UpdateEmployeeDTO {
      * @memberof UpdateEmployeeDTO
      */
     'jobTitle'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdateEmployeeDTO
+     */
+    'jobTitle_bi'?: Array<string>;
     /**
      * 
      * @type {string}
