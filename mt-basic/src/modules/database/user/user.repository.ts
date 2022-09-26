@@ -24,7 +24,6 @@ export class UserRepository extends UserRepositoryDef {
       firstName: u.firstName,
       lastName: u.lastName,
       isActive: u.isActive,
-      secret: u.secret,
     };
   }
 

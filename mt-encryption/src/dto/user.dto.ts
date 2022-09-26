@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsBoolean, IsOptional, IsUUID } from 'class-validator';
-type encrypted = string;
 
 export class UserDTO {
   @ApiProperty()
   @IsUUID()
   id: string;
+
+  @ApiProperty()
+  @IsUUID()
+  tenantId: string;
 
   @ApiProperty({ example: 'Max' })
   @IsString()
@@ -18,10 +21,6 @@ export class UserDTO {
   @ApiProperty({ example: true })
   @IsBoolean()
   isActive?: boolean;
-
-  @ApiProperty({ example: 'My secret' })
-  @IsString()
-  secret?: encrypted;
 }
 
 export class CreateUserDTO {
@@ -41,11 +40,6 @@ export class CreateUserDTO {
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
-
-  @ApiProperty({ example: 'My secret', required: false })
-  @IsOptional()
-  @IsString()
-  secret?: encrypted;
 }
 
 export class CreateUserWithTenant extends CreateUserDTO {

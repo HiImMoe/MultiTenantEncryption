@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as pbkdf2 from 'pbkdf2';
+import { scryptSync } from 'crypto';
 
 export interface HashKeys {
   key: string;
@@ -10,10 +11,10 @@ export interface HashKeys {
 export class HashService {
   hashSearchParams(object: object, salt: string) {
     const hashParams = {};
-    for (const [key, value] of Object.entries(object)) {
-      hashParams[key] = pbkdf2
-        .pbkdf2Sync(object[key].toString(), salt, 1, 32, 'sha512')
-        .toString('hex');
+    for (const [key] of Object.entries(object)) {
+      hashParams[key] = scryptSync(object[key].toString(), salt, 32).toString(
+        'hex',
+      );
     }
     return hashParams;
   }

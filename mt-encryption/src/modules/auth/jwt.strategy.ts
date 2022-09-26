@@ -5,8 +5,8 @@ import { ConfigService } from '@nestjs/config';
 import { passportJwtSecret } from 'jwks-rsa';
 import { AuthService } from './auth.service';
 import { JwtPayload } from './jwt-payload.interface';
-import { UserModel } from '../database/models/user.model';
 import { RequestContext, TenantRequestContext } from 'src/context/tenant-context';
+import { UserRequest } from 'src/controller/request.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<UserModel | boolean> {
+  async validate(payload: JwtPayload): Promise<UserRequest['user']> {
     const user = await this.authService.loadUserByJwtToken(payload.sub);
     const ctx: TenantRequestContext = RequestContext.get();
     if (ctx) {

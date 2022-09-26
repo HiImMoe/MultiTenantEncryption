@@ -4,8 +4,6 @@ import { EmployeeService } from '../employee/employee.serivce';
 import { TenantService } from '../tenant/tenant.service';
 import * as fs from 'fs';
 import { CreateTenantDTO } from 'src/dto/tenant.dto';
-import { calcTenantSize } from './utils';
-import { CreateEmployeeDTO } from 'src/dto/employee.dto';
 import { PerformanceRatingService } from '../performance-rating/performance-rating.service';
 import { CreatePerformanceRatingDTO } from 'src/dto/performance-rating.dto';
 import { CreateBoniDTO } from 'src/dto/boni.dto';
@@ -15,8 +13,7 @@ import { MissingDayService } from '../missing-day/missing-day.service';
 import * as cliProgress from 'cli-progress';
 import { UserService } from '../user/user.service';
 
-const NUMBER_OF_TENANTS = 10;
-const MAX_EMPLOYEE_SIZE = 100;
+const NUMBER_OF_TENANTS = 100;
 
 @Injectable()
 export class ImportService {

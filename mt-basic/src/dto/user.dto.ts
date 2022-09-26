@@ -18,10 +18,6 @@ export class UserDTO {
   @ApiProperty({ example: true })
   @IsBoolean()
   isActive?: boolean;
-
-  @ApiProperty({ example: 'My secret' })
-  @IsString()
-  secret?: encrypted;
 }
 
 export class CreateUserDTO {
@@ -41,11 +37,6 @@ export class CreateUserDTO {
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
-
-  @ApiProperty({ example: 'My secret', required: false })
-  @IsOptional()
-  @IsString()
-  secret?: encrypted;
 }
 
 export class CreateUserWithTenant extends CreateUserDTO {

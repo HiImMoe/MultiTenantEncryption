@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDTO, CreateUserWithTenant } from 'src/dto/user.dto';
+import { CreateUserDTO } from 'src/dto/user.dto';
 import { EncryptionRepositoryDef } from 'src/repository/encryption.repository.def';
 import { UserRepositoryDef } from 'src/repository/user.repository.def';
 import { Repository } from 'typeorm';
@@ -24,7 +24,6 @@ export class UserRepository extends UserRepositoryDef {
       firstName: u.firstName,
       lastName: u.lastName,
       isActive: u.isActive,
-      secret: u.secret,
     };
   }
 

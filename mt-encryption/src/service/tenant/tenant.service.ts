@@ -10,4 +10,8 @@ export class TenantService {
     const tenant = await this.tenantRepo.createTenant(newTenant);
     return tenant;
   }
+
+  async getTenant(tenantId: string): Promise<TenantDTO> {
+    return await this.tenantRepo.getTenantById(tenantId);
+  }
 }

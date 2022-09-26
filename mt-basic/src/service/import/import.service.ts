@@ -15,8 +15,7 @@ import { MissingDayService } from '../missing-day/missing-day.service';
 import * as cliProgress from 'cli-progress';
 import { UserService } from '../user/user.service';
 
-const NUMBER_OF_TENANTS = 10;
-const MAX_EMPLOYEE_SIZE = 100;
+const NUMBER_OF_TENANTS = 100;
 
 @Injectable()
 export class ImportService {
