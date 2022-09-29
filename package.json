@@ -3,15 +3,12 @@
   "private": true,
   "workspaces": [
     "mt-encryption",
-    "mt-frontend",
-    "mt-basic"
+    "mt-middleware",
+    "mt-compare"
   ],
   "scripts": {
     "enc": "yarn workspace mt-encryption",
-    "frontend": "yarn workspace mt-frontend",
-    "basic": "yarn workspace mt-basic"
-  },
-  "dependencies": {
-    "artillery": "^2.0.0-22"
+    "middleware": "yarn workspace mt-middleware",
+    "compare": "yarn workspace mt-compare"
   }
 }
