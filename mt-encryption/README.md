@@ -1,2 +1,5 @@
-## RESET DB ##
-RESET_DB=1 yarn start
+## ENCRYPTION BACKEND
+
+This backend is the backend which is hosted at the cloud provider and stores the encrypted values
+
+for starting see readme.md in root folder

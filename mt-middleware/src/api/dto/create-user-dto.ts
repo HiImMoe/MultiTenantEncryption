@@ -44,11 +44,5 @@ export interface CreateUserDTO {
      * @memberof CreateUserDTO
      */
     'isActive'?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateUserDTO
-     */
-    'secret'?: string;
 }
 

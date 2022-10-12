@@ -1,13 +1,25 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { scrypt } from 'crypto';
-import { promisify } from 'util';
+import { Observable } from 'rxjs';
+import { AxiosResponse } from 'axios';
+
+interface TenantKeys {
+  keyEnc: string;
+  keyHash: string;
+}
 
 @Injectable()
 export class KeyService {
-  async getKey(): Promise<string> {
-    const key = (
-      (await promisify(scrypt)('test', 'salt', 32)) as Buffer
-    ).toString('hex');
-    return key;
+  constructor(private httpService: HttpService) {}
+
+  async getKey(
+    tenantId = '97a8f644-e815-44a3-b542-62982a29161c',
+  ): Promise<string> {
+    const req = await this.keyManagementReq(tenantId).toPromise();
+    return req.data.keyEnc;
+  }
+
+  keyManagementReq(tenantId: string): Observable<AxiosResponse<TenantKeys>> {
+    return this.httpService.get(`http://localhost:3200/${tenantId}`);
   }
 }

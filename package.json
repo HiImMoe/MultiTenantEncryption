@@ -3,11 +3,13 @@
   "private": true,
   "workspaces": [
     "mt-encryption",
+    "mt-key-management",
     "mt-middleware",
     "mt-compare"
   ],
   "scripts": {
     "enc": "yarn workspace mt-encryption",
+    "key": "yarn workspace mt-key-management",
     "middleware": "yarn workspace mt-middleware",
     "compare": "yarn workspace mt-compare"
   }

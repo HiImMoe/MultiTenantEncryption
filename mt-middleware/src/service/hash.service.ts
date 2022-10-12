@@ -24,22 +24,16 @@ export class HashService {
     hashKeys.forEach((hashKey) => {
       if (object[hashKey.key]) {
         hashObject[`${hashKey.key}_bi`] = [
-          pbkdf2
-            .pbkdf2Sync(object[hashKey.key].toString(), salt, 1, 32, 'sha512')
-            .toString('hex'),
+          scryptSync(object[hashKey.key].toString(), salt, 32).toString('hex'),
         ];
         if (hashKey.numberOfLetters) {
           for (let i = 0; i < hashKey.numberOfLetters; i++) {
             hashObject[`${hashKey.key}_bi`].push(
-              pbkdf2
-                .pbkdf2Sync(
-                  object[hashKey.key].substring(0, i + 1),
-                  'salt',
-                  1,
-                  32,
-                  'sha512',
-                )
-                .toString('hex'),
+              scryptSync(
+                object[hashKey.key].substring(0, i + 1),
+                'salt',
+                32,
+              ).toString('hex'),
             );
           }
         }

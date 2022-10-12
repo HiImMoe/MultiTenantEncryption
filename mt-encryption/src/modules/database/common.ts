@@ -1,12 +1,10 @@
 import { TenantRequestContext, RequestContext } from 'src/context/tenant-context';
 import { PagingDTO } from 'src/dto/common';
-import { EncryptionRepositoryDef } from 'src/repository/encryption.repository.def';
 import { FindOneOptions, FindOptionsWhere, ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
 
 export class CommonDB<E extends ObjectLiteral> {
   private entity: new () => ObjectLiteral;
   private repo: Repository<E>;
-  private encryptionRepo: EncryptionRepositoryDef;
   constructor(entity: new () => ObjectLiteral, repo: Repository<E>) {
     this.entity = entity;
     this.repo = repo;

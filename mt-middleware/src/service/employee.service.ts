@@ -54,6 +54,7 @@ export class EmployeeService {
     token: string,
     params: SearchEmployeeModel,
     paging: PagingDTO,
+    tenantId: string,
   ) {
     const config = this.apiService.getApiConfig(token);
     const employeeApi = new EmployeeApi(config);
@@ -64,7 +65,7 @@ export class EmployeeService {
       ...this.hashService.hashSearchParams(params, this.salt),
     });
 
-    const key = await this.keysService.getKey();
+    const key = await this.keysService.getKey(tenantId);
 
     const decEmployees: EmployeeDTO[] = [];
     req.data.forEach((employee) => {
@@ -86,8 +87,9 @@ export class EmployeeService {
   async createEmployee(
     token: string,
     employeeData: CreateEmployeeDTO,
+    tenantId: string,
   ): Promise<string> {
-    const key = await this.keysService.getKey();
+    const key = await this.keysService.getKey(tenantId);
 
     const encData = this.encryptionService.enc(
       employeeData,
@@ -119,8 +121,9 @@ export class EmployeeService {
     token: string,
     employeeId: string,
     employeeData: UpdateEmployeeDTO,
+    tenantId: string,
   ) {
-    const key = await this.keysService.getKey();
+    const key = await this.keysService.getKey(tenantId);
 
     const encData = this.encryptionService.enc(
       employeeData,

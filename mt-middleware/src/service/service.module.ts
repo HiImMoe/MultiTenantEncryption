@@ -8,6 +8,7 @@ import { HashService } from './hash.service';
 import { KeyService } from './key.service';
 import { MissingDaysService } from './missing-days.service';
 import { PerformanceRatingService } from './performance-rating.service';
+import { TenantService } from './tenant.service';
 
 @Module({
   imports: [HttpModule],
@@ -20,6 +21,7 @@ import { PerformanceRatingService } from './performance-rating.service';
     MissingDaysService,
     KeyService,
     HashService,
+    TenantService,
   ],
   exports: [
     EmployeeService,
@@ -28,6 +30,7 @@ import { PerformanceRatingService } from './performance-rating.service';
     MissingDaysService,
     KeyService,
     HashService,
+    TenantService,
   ],
 })
 export class ServiceModule {}

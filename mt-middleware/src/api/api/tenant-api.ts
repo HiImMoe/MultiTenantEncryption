@@ -69,6 +69,39 @@ export const TenantApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantControllerGetTenantId: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tenant/tenantId`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication oauth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "oauth2", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -89,6 +122,15 @@ export const TenantApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tenantControllerCreateTenant(createTenantDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantControllerGetTenantId(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantControllerGetTenantId(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -107,6 +149,14 @@ export const TenantApiFactory = function (configuration?: Configuration, basePat
          */
         tenantControllerCreateTenant(createTenantDTO: CreateTenantDTO, options?: any): AxiosPromise<TenantDTO> {
             return localVarFp.tenantControllerCreateTenant(createTenantDTO, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantControllerGetTenantId(options?: any): AxiosPromise<string> {
+            return localVarFp.tenantControllerGetTenantId(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -141,5 +191,15 @@ export class TenantApi extends BaseAPI {
      */
     public tenantControllerCreateTenant(requestParameters: TenantApiTenantControllerCreateTenantRequest, options?: AxiosRequestConfig) {
         return TenantApiFp(this.configuration).tenantControllerCreateTenant(requestParameters.createTenantDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TenantApi
+     */
+    public tenantControllerGetTenantId(options?: AxiosRequestConfig) {
+        return TenantApiFp(this.configuration).tenantControllerGetTenantId(options).then((request) => request(this.axios, this.basePath));
     }
 }

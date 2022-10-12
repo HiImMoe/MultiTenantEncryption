@@ -15,3 +15,11 @@ export class CreateTenantDTO {
   @IsString()
   tenantName!: string;
 }
+
+export class ImportTenantDTO {
+  @IsString()
+  tenantId!: string;
+
+  @IsString()
+  tenantName!: string;
+}

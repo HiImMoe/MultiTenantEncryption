@@ -1,9 +1,8 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { TenantRequestContext, RequestContext } from 'src/context/tenant-context';
-import { EmployeeService } from '../employee/employee.serivce';
 import { TenantService } from '../tenant/tenant.service';
 import * as fs from 'fs';
-import { CreateTenantDTO } from 'src/dto/tenant.dto';
+import { ImportTenantDTO } from 'src/dto/tenant.dto';
 import { PerformanceRatingService } from '../performance-rating/performance-rating.service';
 import { CreatePerformanceRatingDTO } from 'src/dto/performance-rating.dto';
 import { CreateBoniDTO } from 'src/dto/boni.dto';
@@ -19,7 +18,6 @@ const NUMBER_OF_TENANTS = 100;
 export class ImportService {
   constructor(
     private tenantService: TenantService,
-    private employeeService: EmployeeService,
     private performanceRatingService: PerformanceRatingService,
     private boniService: BoniService,
     private missingDayService: MissingDayService,
@@ -28,7 +26,7 @@ export class ImportService {
   ) {}
 
   async importData() {
-    const tenantList: CreateTenantDTO[] = this.importFileData('tenant.json');
+    const tenantList: ImportTenantDTO[] = this.importFileData('tenant.json');
     const progressBar = new cliProgress.SingleBar(
       {
         barsize: 60,
@@ -38,30 +36,21 @@ export class ImportService {
     );
     progressBar.start(NUMBER_OF_TENANTS, 0);
     for (let i = 0; i < NUMBER_OF_TENANTS; i++) {
-      await this.importTenant(10, tenantList[i], i);
+      await this.importTenant(tenantList[i], i);
       progressBar.increment();
     }
     progressBar.stop();
   }
 
-  async importTenant(tenantNumber, tenantData: CreateTenantDTO, currentTenantNumber: number) {
-    const tenant = await this.tenantService.createTenant(tenantData);
+  async importTenant(tenantData: ImportTenantDTO, currentTenantNumber: number) {
+    const tenant = await this.tenantService.importTenant(tenantData);
     const ctx: TenantRequestContext = RequestContext.get();
     if (ctx) {
       ctx.tenantId = tenant.id;
     }
 
     const keycloakUserId = await this.importKeycloakUser(currentTenantNumber);
-    this.userService.createUser({ firstName: 'Test', lastName: 'Tenant', isActive: true, keycloakId: keycloakUserId });
-
-    // const employeeList: CreateEmployeeDTO[] = this.importFileData('employee.json');
-    // for (let i = 0; i < calcTenantSize(tenantNumber, NUMBER_OF_TENANTS, MAX_EMPLOYEE_SIZE); i++) {
-    //   const employeeId = await this.employeeService.createEmployee({ ...employeeList[i], employeeNumber: i.toString() });
-    //   const performanceRatingPromise = this.createPerformanceRatings(employeeId, 10);
-    //   const boniPromise = this.createBoni(employeeId, 10);
-    //   const missingDaysPromise = this.createMissingDays(employeeId, 10);
-    //   await Promise.all([performanceRatingPromise, boniPromise, missingDaysPromise]);
-    // }
+    this.userService.createUser({ firstName: 'First', lastName: tenant.tenantName, isActive: true, keycloakId: keycloakUserId });
   }
 
   async importKeycloakUser(tenantNumber) {
@@ -78,7 +67,7 @@ export class ImportService {
       })
       .toPromise();
     const token = `Bearer ${authRes.data.access_token}`;
-    const createUserRes = await this.httpService
+    await this.httpService
       .post(
         process.env.KEYCLOAK_USER_URL || '',
         {
@@ -97,9 +86,6 @@ export class ImportService {
       )
       .toPromise()
       .catch(e => console.log(e));
-    // if (createUserRes.status !== 201) {
-    //   throw new Error('Error in Keycloak User creation');
-    // }
 
     const getUserRes = await this.httpService
       .get(`${process.env.KEYCLOAK_USER_URL || ''}`, {

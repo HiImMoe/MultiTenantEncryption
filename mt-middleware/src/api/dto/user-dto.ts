@@ -31,6 +31,12 @@ export interface UserDTO {
      * @type {string}
      * @memberof UserDTO
      */
+    'tenantId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDTO
+     */
     'firstName': string;
     /**
      * 
@@ -44,11 +50,5 @@ export interface UserDTO {
      * @memberof UserDTO
      */
     'isActive'?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserDTO
-     */
-    'secret'?: string;
 }
 

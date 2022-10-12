@@ -4,6 +4,7 @@ import { BoniController } from './boni.controller';
 import { EmployeeController } from './employee.controller';
 import { MissingDaysController } from './missing-days.controller';
 import { PerformanceRatingController } from './perframce-rating.controller';
+import { TenantController } from './tenant.controller';
 
 @Module({
   imports: [ServiceModule],
@@ -12,6 +13,7 @@ import { PerformanceRatingController } from './perframce-rating.controller';
     BoniController,
     PerformanceRatingController,
     MissingDaysController,
+    TenantController,
   ],
 })
 export class ControllerModule {}
