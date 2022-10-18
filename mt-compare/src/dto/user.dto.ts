@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsBoolean, IsOptional, IsUUID } from 'class-validator';
-type encrypted = string;
 
 export class UserDTO {
   @ApiProperty()
   @IsUUID()
   id: string;
+
+  @ApiProperty()
+  @IsUUID()
+  tenantId: string;
 
   @ApiProperty({ example: 'Max' })
   @IsString()

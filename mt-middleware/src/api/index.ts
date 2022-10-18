@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * MT-Encryption
- * API for the RE:Base frontend
+ * API for the MT-Encryption System
  *
  * The version of the OpenAPI document: 0.1
  * 

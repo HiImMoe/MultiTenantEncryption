@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as pbkdf2 from 'pbkdf2';
-import { scryptSync } from 'crypto';
+import { scryptSync, pbkdf2Sync } from 'crypto';
 
 export interface HashKeys {
   key: string;
@@ -12,9 +11,18 @@ export class HashService {
   hashSearchParams(object: object, salt: string) {
     const hashParams = {};
     for (const [key] of Object.entries(object)) {
-      hashParams[key] = scryptSync(object[key].toString(), salt, 32).toString(
-        'hex',
-      );
+      // hashParams[key] = pbkdf2Sync(
+      //   object[key].toString(),
+      //   salt,
+      //   1024,
+      //   64,
+      //   'sha512',
+      // ).toString('hex');
+      hashParams[key] = scryptSync(object[key].toString(), salt, 64, {
+        N: 1024,
+        r: 1,
+        p: 1,
+      }).toString('hex');
     }
     return hashParams;
   }
@@ -24,16 +32,34 @@ export class HashService {
     hashKeys.forEach((hashKey) => {
       if (object[hashKey.key]) {
         hashObject[`${hashKey.key}_bi`] = [
-          scryptSync(object[hashKey.key].toString(), salt, 32).toString('hex'),
+          // pbkdf2Sync(
+          //   object[hashKey.key].toString(),
+          //   salt,
+          //   1024,
+          //   64,
+          //   'sha512',
+          // ).toString('hex'),
+          scryptSync(object[hashKey.key].toString(), salt, 64, {
+            N: 1024,
+            r: 1,
+            p: 1,
+          }).toString('hex'),
         ];
         if (hashKey.numberOfLetters) {
           for (let i = 0; i < hashKey.numberOfLetters; i++) {
             hashObject[`${hashKey.key}_bi`].push(
-              scryptSync(
-                object[hashKey.key].substring(0, i + 1),
-                'salt',
-                32,
-              ).toString('hex'),
+              // pbkdf2Sync(
+              //   object[hashKey.key].substring(0, i + 1),
+              //   'salt',
+              //   1024,
+              //   64,
+              //   'sha512',
+              // ).toString('hex'),
+              scryptSync(object[hashKey.key].substring(0, i + 1), 'salt', 64, {
+                N: 1024,
+                r: 1,
+                p: 1,
+              }).toString('hex'),
             );
           }
         }

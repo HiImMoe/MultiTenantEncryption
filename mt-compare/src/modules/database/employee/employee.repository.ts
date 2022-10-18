@@ -20,11 +20,11 @@ export class EmployeeRepository extends EmployeeRepositoryDef {
     const builder = this.employeeRepo.createQueryBuilder('employee').orderBy('employee.employeeNumber');
 
     if (params.firstName) {
-      builder.andWhere({ firstName: params.firstName });
+      builder.andWhere('employee.firstName like :name', { name: `%${params.firstName}%` });
     }
 
     if (params.lastName) {
-      builder.andWhere({ lastName: params.lastName });
+      builder.andWhere('employee.lastName like :name', { name: `%${params.lastName}%` });
     }
 
     if (params.employeeNumber) {

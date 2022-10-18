@@ -8,7 +8,7 @@ import { ApiValidationErrorResponse } from 'src/validation';
 @ApiOAuth2([])
 @ApiTags('MissingDays')
 @UseGuards(JwtAuthGuard)
-@Controller('/missing-days')
+@Controller('/:tenantId/missing-days')
 export class MissingDaysController {
   constructor(private missingDaysService: MissingDayService) {}
 

@@ -3,7 +3,7 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 import { CreateBoniDTO } from 'src/api/dto/create-boni-dto';
 import { BoniService } from 'src/service/boni.service';
 
-@Controller('/boni')
+@Controller('/:tenantId/boni')
 export class BoniController {
   constructor(private boniService: BoniService) {}
 

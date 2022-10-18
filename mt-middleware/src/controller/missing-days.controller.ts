@@ -3,7 +3,7 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 import { CreateMissingDayDTO } from 'src/api/dto/create-missing-day-dto';
 import { MissingDaysService } from 'src/service/missing-days.service';
 
-@Controller('/missing-days')
+@Controller('/:tenantId/missing-days')
 export class MissingDaysController {
   constructor(private missingDaysService: MissingDaysService) {}
 

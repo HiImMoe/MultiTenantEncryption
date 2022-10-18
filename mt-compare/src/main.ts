@@ -11,6 +11,6 @@ async function bootstrap() {
   setupOpenAPI(app);
   setupValidation(app);
 
-  await app.listen(3200);
+  await app.listen(3300);
 }
 bootstrap();

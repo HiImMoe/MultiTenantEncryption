@@ -3,7 +3,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function setupOpenAPI(app: INestApplication): Object {
-  const configBuilder = new DocumentBuilder().setTitle('MT-Encryption').setDescription('API for the RE:Base frontend').setVersion('0.1');
+  const configBuilder = new DocumentBuilder()
+    .setTitle('MT-Encryption')
+    .setDescription('API for the MT-Encryption System')
+    .setVersion('0.1');
 
   if (process.env.AUTH_OPEN_ID_CONFIG) {
     configBuilder.addOAuth2({

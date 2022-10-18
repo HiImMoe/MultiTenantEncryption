@@ -3,7 +3,7 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 import { CreatePerformanceRatingDTO } from 'src/api/dto/create-performance-rating-dto';
 import { PerformanceRatingService } from 'src/service/performance-rating.service';
 
-@Controller('/performance-rating')
+@Controller('/:tenantId/performance-rating')
 export class PerformanceRatingController {
   constructor(private performanceRatingService: PerformanceRatingService) {}
 

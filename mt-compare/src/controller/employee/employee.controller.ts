@@ -8,7 +8,7 @@ import { ApiValidationErrorResponse } from 'src/validation';
 @ApiOAuth2([])
 @ApiTags('employee')
 @UseGuards(JwtAuthGuard)
-@Controller('/employee')
+@Controller('/:tenantId/employee')
 export class EmployeeController {
   constructor(private employeeService: EmployeeService) {}
 

@@ -8,7 +8,7 @@ import { ApiValidationErrorResponse } from 'src/validation';
 @ApiOAuth2([])
 @ApiTags('PerformanceRating')
 @UseGuards(JwtAuthGuard)
-@Controller('/performance-rating')
+@Controller('/:tenantId/performance-rating')
 export class PerformanceRatingController {
   constructor(private performanceRatingService: PerformanceRatingService) {}
 

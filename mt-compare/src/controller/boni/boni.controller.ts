@@ -8,7 +8,7 @@ import { ApiValidationErrorResponse } from 'src/validation';
 @ApiOAuth2([])
 @ApiTags('Boni')
 @UseGuards(JwtAuthGuard)
-@Controller('/boni')
+@Controller('/:tenantId/boni')
 export class BoniController {
   constructor(private boniService: BoniService) {}
 
