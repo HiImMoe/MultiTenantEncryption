@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { scryptSync, pbkdf2Sync } from 'crypto';
+import { scryptSync } from 'crypto';
 
 export interface HashKeys {
   key: string;
