@@ -23,7 +23,7 @@ export class PerformanceRatingService {
     const encPR = this.encryptionService.enc(
       performanceRatingData,
       this.performanceRatingEncKeys,
-      key,
+      key.keyEnc,
     );
 
     const config = this.apiService.getApiConfig(token);

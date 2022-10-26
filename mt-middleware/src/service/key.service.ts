@@ -14,9 +14,9 @@ export class KeyService {
 
   async getKey(
     tenantId = '97a8f644-e815-44a3-b542-62982a29161c',
-  ): Promise<string> {
+  ): Promise<TenantKeys> {
     const req = await this.keyManagementReq(tenantId).toPromise();
-    return req.data.keyEnc;
+    return req.data;
   }
 
   keyManagementReq(tenantId: string): Observable<AxiosResponse<TenantKeys>> {

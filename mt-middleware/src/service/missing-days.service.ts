@@ -20,7 +20,7 @@ export class MissingDaysService {
     const encMD = this.encryptionService.enc(
       missingDayData,
       this.missingDaysEncKeys,
-      key,
+      key.keyEnc,
     );
 
     const config = this.apiService.getApiConfig(token);

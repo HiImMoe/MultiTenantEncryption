@@ -33,8 +33,6 @@ export class EmployeeService {
     'iban',
   ];
 
-  private salt = 'salt';
-
   private hashEmployeeKeys: HashKeys[] = [
     { key: 'employeeNumber' },
     { key: 'gender' },
@@ -56,16 +54,15 @@ export class EmployeeService {
     paging: PagingDTO,
     tenantId: string,
   ) {
+    const key = await this.keysService.getKey(tenantId);
     const config = this.apiService.getApiConfig(token);
     const employeeApi = new EmployeeApi(config);
 
     const req = await employeeApi.employeeControllerGetEmployees({
       page: paging.page,
       pageSize: paging.pageSize,
-      ...this.hashService.hashSearchParams(params, this.salt),
+      ...this.hashService.hashSearchParams(params, key.keyHash),
     });
-
-    const key = await this.keysService.getKey(tenantId);
 
     const decEmployees: EmployeeDTO[] = [];
     req.data.forEach((employee) => {
@@ -73,7 +70,7 @@ export class EmployeeService {
         const decEmployee = this.encryptionService.dec(
           employee,
           this.employeeEncKeys,
-          key,
+          key.keyEnc,
         );
         decEmployees.push(decEmployee);
       } catch (error) {
@@ -94,13 +91,13 @@ export class EmployeeService {
     const encData = this.encryptionService.enc(
       employeeData,
       this.employeeEncKeys,
-      key,
+      key.keyEnc,
     );
 
     const hashes = await this.hashService.hashObject(
       employeeData,
       this.hashEmployeeKeys,
-      this.salt,
+      key.keyHash,
     );
 
     const employeeDataWithHashes = {
@@ -128,13 +125,13 @@ export class EmployeeService {
     const encData = this.encryptionService.enc(
       employeeData,
       this.employeeEncKeys,
-      key,
+      key.keyEnc,
     );
 
     const hashes = await this.hashService.hashObject(
       employeeData,
       this.hashEmployeeKeys,
-      this.salt,
+      key.keyHash,
     );
 
     const employeeDataWithHashes = {

@@ -17,7 +17,11 @@ export class BoniService {
 
   async createBoni(token: string, boniData: CreateBoniDTO) {
     const key = await this.keyService.getKey();
-    const encBoni = this.encryptionService.enc(boniData, this.boniEncKeys, key);
+    const encBoni = this.encryptionService.enc(
+      boniData,
+      this.boniEncKeys,
+      key.keyEnc,
+    );
 
     const config = this.apiService.getApiConfig(token);
     const boniApi = new BoniApi(config);
