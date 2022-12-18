@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateTenantDTO } from 'src/dto/tenant.dto';
+import { CreateTenantDTO, ImportTenantDTO, TenantDTO } from 'src/dto/tenant.dto';
 import { TenantRepositoryDef } from 'src/repository/tenant.repository.def';
 import { Repository } from 'typeorm';
 import { Tenant } from './tenant.entity';
@@ -11,14 +11,27 @@ export class TenantRepository extends TenantRepositoryDef {
     super();
   }
 
-  async createTenant(tenantData: CreateTenantDTO): Promise<Tenant> {
-    const tenant = await this.tenantRepo.create(tenantData);
-    // const newTenant = await this.tenantRepo.save(tenant);
-    return tenant;
+  map(tenant: Tenant): TenantDTO {
+    return {
+      id: tenant.id,
+      tenantName: tenant.tenantName,
+    };
   }
 
-  async getTenantById(tenantId: string): Promise<Tenant> {
+  async createTenant(tenantData: CreateTenantDTO): Promise<TenantDTO> {
+    const tenant = await this.tenantRepo.create(tenantData);
+    const newTenant = await this.tenantRepo.save(tenant);
+    return this.map(newTenant);
+  }
+
+  async importTenant(tenantData: ImportTenantDTO): Promise<TenantDTO> {
+    const tenant = await this.tenantRepo.create({ id: tenantData.tenantId, tenantName: tenantData.tenantName });
+    const newTenant = await this.tenantRepo.save(tenant);
+    return this.map(newTenant);
+  }
+
+  async getTenantById(tenantId: string): Promise<TenantDTO> {
     const tenant = await this.tenantRepo.findOneBy({ id: tenantId });
-    return tenant;
+    return this.map(tenant);
   }
 }

@@ -7,7 +7,4 @@ export class Tenant {
 
   @Column()
   tenantName: string;
-
-  @Column()
-  key: string;
 }
